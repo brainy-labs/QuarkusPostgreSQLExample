@@ -2,6 +2,7 @@ package it.brainylabs.services;
 
 import java.util.List;
 
+import io.quarkus.cache.CacheInvalidate;
 import it.brainylabs.models.entities.UserEntity;
 import it.brainylabs.reporitories.UserRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -26,6 +27,7 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    @CacheInvalidate(cacheName = "users")
     public void delete (UserEntity userEntity) {
         userRepository.delete(userEntity);
     }
